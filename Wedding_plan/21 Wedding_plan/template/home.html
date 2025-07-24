@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+<style>
+    img{
+        height:400px;
+        width:900px;
+    }
+</style>
+    <main>
+        <div class="intro">
+            <h1 style="color:#fff">Wedding Plans</h1>
+            <img src="{% static 'images/wedding-planners-in-hyderabad.jpg' %}">
+        </div>
+    </main>
+{% endblock %}

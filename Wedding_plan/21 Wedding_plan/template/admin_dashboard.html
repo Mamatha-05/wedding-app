@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Course Management</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #eef2f3 30%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            color: #444;
+        }
+
+        header {
+            background: linear-gradient(135deg, #283593 0%, #1a237e 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #0d47a1;
+            color: white;
+        }
+
+        .title {
+            font-size: 2.5em;
+            margin: 0;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+            color: #1a237e;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .actions {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .actions li {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            margin: 15px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .actions li:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <header>
+        <h1 class="title">Admin - Course Learning Management</h1>
+    </header>
+    <div class="container">
+        <h2>Admin Actions</h2>
+        <ul class="actions">
+            <li>Manage User Accounts</li>
+            <li><a href="{% url 'addcourse' %}">Add New Courses</a></li>
+            <li>Delete Courses</li>
+        </ul>
+
+        <h2>Post a New Course</h2>
+        <form>
+            <label for="course-title">Course Title:</label>
+            <input type="text" id="course-title" name="course-title" required>
+
+            <label for="course-details">Course Details:</label>
+            <textarea id="course-details" name="course-details" rows="4" required></textarea>
+
+            <button type="submit">Post Course</button>
+        </form>
+    </div>
+</body>
+</html>

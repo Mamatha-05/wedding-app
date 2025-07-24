@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block main %}
+<style>
+.listtable{
+    display:flex;
+    justify-content:center;
+}   
+table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    overflow-x:scroll;
+    width:850px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    background-color: #f1f1f1;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height:200px;
+    margin-top:60px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    height:500px
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+#guests{
+    margin-top:-30%;
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.button {
+    padding: 10px 15px;
+    border: none;
+    background: #444;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.button:hover {
+    background: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    background: #444;
+    color: #fff;
+    border-radius: 8px;
+}
+
+</style>
+<div class="main">
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_status">wedding:</label>
+        <select id="id_status" name="wedding" required disabled>
+            {% if data %}
+            <option value="{{data.id}}">{{data.name}}-{{data.location}}-{{data.date}}"</option>
+            {% else %}
+            <option>Empty</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_status">Vendor:</label>
+        <select id="id_status" name="vendor" required>
+            <option >---select---</option>
+            {% if vendors %}
+            {% for vendor in vendors %}
+            <option value="{{vendor.id}}">{{vendor.name}}-{{vendor.service}}</option>
+            {% endfor %}
+            {% else %}
+            <option>Empty</option>
+            {% endif %}
+        </select>
+    </div>
+    <button type="submit" class="button">Add vendor</button>
+</form>
+</div>
+<div class="listtable">
+    {% if selected %}
+<section class="vendorlist">
+    <h2>applyed Vendors </h2>
+    {% if selected %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>vendor</th>
+                <th>status</th>
+                <th>action</th>
+                <th>contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in selected %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.wedding.name}}</td>
+                    <td>{{service.vendor.name}}-{{service.vendor.service}}</td>
+                    <td>{{service.status}}</td>
+                    {% if service.status == 'pending' %}
+                    <td><a href="{% url 'delete_vendor' pk=service.id %}">Delete vendor</a></td>
+                    <td>-</td>
+                    {% elif service.status == 'confirm' %}
+                    <td>Unable to delete</td>
+                    <td>{{service.vendor.contact_info}}</td>
+                    {% else %}
+                    <td>Unable to delete</td>
+                    <td>-</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% endif %}
+</div>
+{% endblock %}

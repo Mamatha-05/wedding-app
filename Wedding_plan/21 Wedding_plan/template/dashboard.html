@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User - Course Learning Management</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #eef2f3 30%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            color: #444;
+        }
+
+        header {
+            background: linear-gradient(135deg, #283593 0%, #1a237e 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #0d47a1;
+            color: white;
+        }
+        .title {
+            font-size: 2.5em;
+            margin: 0;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+            color: #1a237e;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .actions {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .actions li {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            margin: 15px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .actions li:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    {% if user.is_staff %}
+    <header>
+        <h1 class="title">Wedding plan</h1>
+    </header>
+    <div class="container">
+        <h2>Admin Actions</h2>
+        <ul class="actions">
+            <a href="{% url 'home' %}"><li>Home</li></a>
+            <a href="{% url 'wedding_add' %}"><li>Add Wedding </li></a>
+            <a href="{% url 'weddings_view' %}"><li>Weddings </li></a>
+            <a href="{% url 'wedding_vendor' %}"><li>Request Services </li></a>
+            <a href="{% url 'wedding_add' %}"><li>Applied details </li></a>
+            <a href="{% url 'logout' %}"><li>Logout</li></a>
+        </ul>
+    </div>
+    {% else %}
+    <header>
+        <h1 class="title">Wedding plan Management</h1>
+        <button class="enroll"><a href="{% url 'logout' %}">Logout</a></button><br>
+    </header>
+    <div class="container">
+        <h2>Vendor Actions</h2>
+        <ul class="actions">
+            <a href="{% url 'home' %}"><li>Home</li></a>
+            <a href="{% url 'vendor_details' %}"><li>Add Service </li></a>
+            <a href="{% url 'services' %}"><li>My Service list</li></a>
+            <a href="{% url 'vendor_details' %}"><li>services </li></a>
+            <a href="{% url 'logout' %}"><li>Logout</li></a>
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>

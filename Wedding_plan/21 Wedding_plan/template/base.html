@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <title>Homepage</title>
+    <style>
+body, h1{
+    margin: 0; 
+    padding: 0;
+    background-color: rgb(139, 90, 30);
+}
+
+header {
+    background:linear-gradient(to right,#0f0c29,#302b63,#24243e);
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    scroll-padding:calc();
+    position:fixed;
+    width:100%;
+    z-index:1000
+}
+
+.logo {
+    font-size: 25px;
+    font-family: 'Sriracha', cursive;
+    color: #000;
+    text-decoration: none;
+}
+.navbar{
+    text-align: center;
+}
+
+nav a {
+    margin-right:50px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    font-weight:bolder;
+
+}
+button{
+    border: transparent;
+    background-color: transparent;
+}
+button :hover{
+    color: white;
+}
+
+.intro {
+    text-align: center;
+    padding: 30px;
+    margin-top:30px;
+}
+
+h1 {
+    font-size: 56px;
+    color: black;
+}
+main{
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-image: url();
+    background-size: 100rem;
+    background-position: center;
+    width: auto;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo" style="color:#fff">Wedding plans</a>
+    <div>
+        <nav class="navbar">
+            <button>
+                <a href="{% url 'home' %}">Home</a>
+            </button>
+            {% if user.is_authenticated %}
+            {% if user.is_staff %}
+            <button>
+                <a href="{% url 'wedding_add' %}">Add Wedding</a>
+            </button>
+            <button>
+                <a href="{% url 'weddings_view' %}">Weddings </a>
+            </button>
+            <button>
+                <a href="{% url 'wedding_vendor' %}">Request Services</a>
+            </button>
+            <button>
+                <a href="{% url 'check_vendor_list' %}">Applied details</a>
+            </button>
+            {% else %}
+            <button>
+                <a href="{% url 'vendor_details' %}">Add Service</a>
+            </button>
+            <a href="{% url 'services' %}">My Service list</a>
+            <button>
+                <a href="{% url 'check_confirmed' %}">services</a>
+            </button>
+            <button>
+                <a href="{% url 'my_vendor_list' %}">Requests </a>
+            </button>
+            {% endif %}
+            <button>
+                <a href="{% url 'logout' %}">Logout</a>
+            </button>
+            {% else %}
+            <button>
+                <a href="{% url 'login' %}">Login</a>
+            </button>
+            <button>
+                <a href="{% url 'register' %}">Register</a>
+            </button>
+            {% endif %}
+        </nav>
+    </div>
+    </header>
+    <section style="padding-top:40px;">
+    {% block main %}
+    {% endblock %}
+    </section>
+</body>
+</html>

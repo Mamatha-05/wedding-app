@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block main %}
+<style>
+section {
+}
+.request{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:40px;
+}
+section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+}
+
+table {
+    width:900px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f1f1f1;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    background: #444;
+    color: #fff;
+    border-radius: 8px;
+}
+</style>
+{% if data %}
+<div class="request">
+<section id="guests">
+    <h2>My services</h2>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>service</th>
+                <th>contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.name}}</td>
+                    <td>{{service.service}}</td>
+                    <td>{{service.contact_info}}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% elif pending %}
+<div class="request">
+    <section id="guests">
+        <h2>check pendings</h2>
+        {% if vendors %}
+        <table>
+            <thead>
+                <tr>
+                    <th>S.no</th>
+                    <th>Name</th>
+                    <th>service</th>
+                    <th>check-list</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in vendors %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{service.name}}</td>
+                        <td>{{service.service}}</td>
+                        <td><a href="{% url 'vendor_wedding_requests' pk=service.id %}">check</a></td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>empty</p>
+        {% endif %}
+    </section>
+</div>
+{% else %}
+<div class="request">
+    <section id="guests">
+        <h2>check pendings</h2>
+        {% if vendors %}
+        <table>
+            <thead>
+                <tr>
+                    <th>S.no</th>
+                    <th>Name</th>
+                    <th>service</th>
+                    <th>check-list</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in vendors %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{service.name}}</td>
+                        <td>{{service.service}}</td>
+                        <td><a href="{% url 'check_confirm_list' pk=service.id %}">check</a></td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>empty</p>
+        {% endif %}
+    </section>
+</div>
+{% endif %}
+{% endblock%}

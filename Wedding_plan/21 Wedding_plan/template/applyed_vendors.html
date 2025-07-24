@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block main %}
+<section id="guests">
+    <h2>applyed Vendors </h2>
+    {% if selected %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>vendor</th>
+                <th>status</th>
+                <th>action</th>
+                <th>contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in selected %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.wedding.name}}</td>
+                    <td>{{service.vendor.name}}-{{service.vendor.service}}</td>
+                    <td>{{service.status}}</td>
+                    {% if service.status == 'pending' %}
+                    <td><a href="{% url 'delete_vendor' pk=service.id %}">Delete vendor</a></td>
+                    <td>-</td>
+                    {% elif service.status == 'confirm' %}
+                    <td>Unable to delete</td>
+                    <td>{{service.vendor.contact_info}}</td>
+                    {% else %}
+                    <td>Unable to delete</td>
+                    <td>-</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% endblock %}

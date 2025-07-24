@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block main %}
+<style>
+section {
+    margin-bottom: 20px;
+    width:800px;
+    margin-left:150px;
+    padding-top:60px;
+}
+
+section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+.request{
+    background-color:green;
+    padding: 5px 10px;
+    margin:10 20px;
+    text-decoration:none;
+    color:#fff;
+}
+</style>
+{% if weddings %}
+<section id="guests">
+    <h2>My weddings</h2>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.name}}</td>
+                    <td>{{service.location}}</td>
+                    <td>{{service.date}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% elif add_vendor %}
+<section id="guests">
+    <h2>My weddings</h2>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.name}}</td>
+                    <td>{{service.location}}</td>
+                    <td>{{service.date}}</td>
+                    <td><a  class="request"href="{% url 'add_vendors' pk=service.id %}">Add/Delete vendor</a></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% elif checkvendors %}
+<section id="guests">
+    <h2>My weddings</h2>
+    {% if data %}
+    <table>
+        <thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{service.name}}</td>
+                    <td>{{service.location}}</td>
+                    <td>{{service.date}}</td>
+                    <td><a  class="request"href="{% url 'wedding_vendor_list' pk=service.id %}">checkvendors</a></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>empty</p>
+    {% endif %}
+</section>
+{% else %}
+{% endif %}
+{% endblock%}
